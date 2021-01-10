@@ -33,21 +33,7 @@ export default async function handler(req, res) {
         
         let page = await browser.newPage();
 
-        // page.on('request', request => {
-        //     const url = request.url();
-
-        //     if(request.method() === 'GET' && url.match('api/aluno/curso')) {
-
-        //         const {authorization: token = ''} = request.headers()
-
-        //         res.send({token})
-        //     }
-
-        //     if(url.match('loja/entrar')) {
-        //         res.send({message: 'email ou senha invalidos'})
-        //     }
-        // })
-
+      
         await page.goto('https://www.estrategiaconcursos.com.br/');
 
         await page.click('.button-header');
@@ -59,8 +45,6 @@ export default async function handler(req, res) {
         await page.waitForNavigation();
        
         await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
-
-        await page.screenshot({path: 'screenshot.png', type: 'png'});
 
         const body = await page.evaluate(() => {
             return {
