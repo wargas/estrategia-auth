@@ -32,34 +32,43 @@ export default async function handler(req, res) {
         const browser = await puppeteer.launch(options);
         
         let page = await browser.newPage();
-        // await page.setRequestInterception(true);
 
-        page.on('request', request => {
-            const url = request.url();
+        // page.on('request', request => {
+        //     const url = request.url();
 
-            if(request.method() === 'GET' && url.match('api/aluno/curso')) {
+        //     if(request.method() === 'GET' && url.match('api/aluno/curso')) {
 
-                const {authorization: token = ''} = request.headers()
+        //         const {authorization: token = ''} = request.headers()
 
-                res.send({token})
-            }
+        //         res.send({token})
+        //     }
 
-            if(url.match('loja/entrar')) {
-                res.send({message: 'email ou senha invalidos'})
-            }
-        })
+        //     if(url.match('loja/entrar')) {
+        //         res.send({message: 'email ou senha invalidos'})
+        //     }
+        // })
 
         await page.goto('https://www.estrategiaconcursos.com.br/');
 
         await page.click('.button-header');
-        await page.type('[name=email]', 'wargasteixeira@hotmail.com')
-        await page.type('[name=senha]', 'Wrgs2703!')
+        await page.type('[name=email]', email)
+        await page.type('[name=senha]', password)
 
         await page.click('.ui-control [type=submit]')
         
         await page.waitForNavigation();
        
-        await page.waitForNavigation();
+        await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
+
+        await page.screenshot({path: 'screenshot.png', type: 'png'});
+
+        const body = await page.evaluate(() => {
+            return {
+                body: document.body.textContent
+            }
+        })
+
+        res.send(body.body)
 
     } catch (error) {
         console.log(error)
