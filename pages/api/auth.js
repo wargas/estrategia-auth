@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const {email, password} = req.body;
 
     if(!email || !password) {
-        res.send({message: 'email ou senha invalidos'})
+        res.end({message: 'email ou senha invalidos'})
     }
 
     try {
@@ -36,27 +36,29 @@ export default async function handler(req, res) {
       
         await page.goto('https://www.estrategiaconcursos.com.br/');
 
-        await page.click('.button-header');
-        await page.type('[name=email]', email)
-        await page.type('[name=senha]', password)
-
-        await page.click('.ui-control [type=submit]')
-        
-        await page.waitForNavigation();
-       
-        await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
-
         const body = await page.evaluate(() => {
             return {
                 body: document.body.textContent
             }
         })
 
-        res.send(body.body)
+        res.end(body.body)
+
+        // await page.click('.button-header');
+        // await page.type('[name=email]', email)
+        // await page.type('[name=senha]', password)
+
+        // await page.click('.ui-control [type=submit]')
+        
+        // await page.waitForNavigation();
+       
+        // await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
+
+        
 
     } catch (error) {
         console.log(error)
-        res.send(JSON.stringify(error))
+        res.end(JSON.stringify(error))
     }
 
 
