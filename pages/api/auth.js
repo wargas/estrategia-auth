@@ -8,20 +8,20 @@ export default async function handler(req, res) {
 
         if (isDev) {
             options = {
-                args: [],
+                // args: [],
                 executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
                 headless: true,
                 ignoreHTTPSErrors: true,
             }
         } else {
             options = {
-                args: chromium.args,
+                // args: chromium.args,
                 executablePath: chromium.executablePath,
                 headless: true,
                 ignoreHTTPSErrors: true,
             }
         }
-        
+
         const browser = await puppeteer.launch(options);
         
         let page = await browser.newPage();
