@@ -5,6 +5,10 @@ export default async function handler(req, res) {
 
     const {email, password} = req.body;
 
+    res.send(req.body);
+
+    return;
+
     if(!email || !password) {
         res.send({message: 'email ou senha invalidos'})
     }
