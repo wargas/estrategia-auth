@@ -1,5 +1,5 @@
 const Index = () => {
-    return <p>OK</p>
+    return <p>OKs</p>
 }
 
 export default Index;
