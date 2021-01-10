@@ -8,15 +8,15 @@ export default async function handler(req, res) {
 
         if (isDev) {
             options = {
-                // args: [],
+                args: [],
                 executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
                 headless: true,
                 ignoreHTTPSErrors: true,
             }
         } else {
             options = {
-                // args: chromium.args,
-                executablePath: chromium.executablePath,
+                args: chromium.args,
+                executablePath: await chromium.executablePath,
                 headless: true,
                 ignoreHTTPSErrors: true,
             }
