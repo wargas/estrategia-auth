@@ -32,17 +32,16 @@ export default async function handler(req, res) {
         const browser = await puppeteer.launch(options);
         
         let page = await browser.newPage();
-
       
-        await page.goto('https://www.estrategiaconcursos.com.br/');
+        // await page.goto('https://www.estrategiaconcursos.com.br/');
       
-        await page.click('.button-header');
-        await page.type('[name=email]', email)
-        await page.type('[name=senha]', password)
+        // await page.click('.button-header');
+        // await page.type('[name=email]', email)
+        // await page.type('[name=senha]', password)
 
-        await page.click('.ui-control [type=submit]')
+        // await page.click('.ui-control [type=submit]')
         
-        await page.waitForNavigation();
+        // await page.waitForNavigation();
        
         await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
 
@@ -53,8 +52,6 @@ export default async function handler(req, res) {
         })
 
         res.end(body.body)
-
-        
 
     } catch (error) {
         console.log(error)
