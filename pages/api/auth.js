@@ -35,6 +35,17 @@ export default async function handler(req, res) {
       
         await page.goto('https://www.estrategiaconcursos.com.br/');
 
+            
+        await page.click('.button-header');
+        await page.type('[name=email]', email)
+        await page.type('[name=senha]', password)
+
+        await page.click('.ui-control [type=submit]')
+        
+        await page.waitForNavigation();
+       
+        await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
+
         const body = await page.evaluate(() => {
             return {
                 body: document.body.textContent
@@ -42,24 +53,6 @@ export default async function handler(req, res) {
         })
 
         res.end(body.body)
-      
-        // await page.click('.button-header');
-        // await page.type('[name=email]', email)
-        // await page.type('[name=senha]', password)
-
-        // await page.click('.ui-control [type=submit]')
-        
-        // await page.waitForNavigation();
-       
-        // await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
-
-        // const body = await page.evaluate(() => {
-        //     return {
-        //         body: document.body.textContent
-        //     }
-        // })
-
-        // res.end(body.body)
 
     } catch (error) {
         console.log(error)
