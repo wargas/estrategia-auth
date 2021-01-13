@@ -1,5 +1,5 @@
 const Index = () => {
-    return <p>V 5</p>
+    return <p>V 6</p>
 }
 
 export default Index;

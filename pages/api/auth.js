@@ -34,8 +34,7 @@ export default async function handler(req, res) {
         let page = await browser.newPage();
       
         await page.goto('https://www.estrategiaconcursos.com.br/');
-
-            
+   
         await page.click('.button-header');
         await page.type('[name=email]', email)
         await page.type('[name=senha]', password)
