@@ -1,6 +1,6 @@
 {
     "functions": {
-        "api/auth.js": {
+        "pages/api/auth.js": {
             "maxDuration": 60
         }
     }
