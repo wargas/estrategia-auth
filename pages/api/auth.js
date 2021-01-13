@@ -33,7 +33,15 @@ export default async function handler(req, res) {
         
         let page = await browser.newPage();
       
-        // await page.goto('https://www.estrategiaconcursos.com.br/');
+        await page.goto('https://www.estrategiaconcursos.com.br/');
+
+        const body = await page.evaluate(() => {
+            return {
+                body: document.body.textContent
+            }
+        })
+
+        res.end(body.body)
       
         // await page.click('.button-header');
         // await page.type('[name=email]', email)
@@ -43,15 +51,15 @@ export default async function handler(req, res) {
         
         // await page.waitForNavigation();
        
-        await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
+        // await page.goto('https://www.estrategiaconcursos.com.br/oauth/token/')
 
-        const body = await page.evaluate(() => {
-            return {
-                body: document.body.textContent
-            }
-        })
+        // const body = await page.evaluate(() => {
+        //     return {
+        //         body: document.body.textContent
+        //     }
+        // })
 
-        res.end(body.body)
+        // res.end(body.body)
 
     } catch (error) {
         console.log(error)
