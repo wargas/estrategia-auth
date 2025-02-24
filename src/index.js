@@ -4,7 +4,7 @@ import { redis } from "./redis.js";
 
 const app = fastify()
 
-app.get('/auth', async (req, res) => {
+app.post('/auth', async (req, res) => {
     await auth('wargasteixeira@hotmail.com', 'Wrgs2703!');
 
     res.send({sucess: true})
