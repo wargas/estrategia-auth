@@ -1,19 +1,18 @@
-import { auth } from "./auth.js";
 import fastify from "fastify";
-import { redis } from "./redis.js";
+import { authQueue } from "./queue.js";
+import { worker } from "./worker.js";
+
 
 const app = fastify()
 
-app.post('/auth', async (req, res) => {
-    await auth('wargasteixeira@hotmail.com', 'Wrgs2703!');
-
-    res.send({sucess: true})
+app.get('/auth', async (_, res) => {
+    await authQueue.add('auth', 1);
+    res.send({ sucess: true })
 })
 
-app.get('/get', async (req, res) => {
-    const data = await redis.get('auth:wargasteixeira@hotmail.com')
-
-    res.send(data)
+app.post('/auth', async (_, res) => {
+    await authQueue.add('auth', 1);
+    res.send({ sucess: true })
 })
 
 app.listen({
@@ -21,4 +20,9 @@ app.listen({
     host: '0.0.0.0',
 })
 
-console.log('rodando')
+
+worker.run()
+
+console.log('rodando...')
+
+

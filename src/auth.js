@@ -1,12 +1,10 @@
-import puppeteer from "puppeteer-core"
-import { redis } from "./redis.js";
-
-
+import puppeteer from "puppeteer-core";
+import { connection } from "./redis.js";
 
 export function auth(email, pass) {
     return new Promise(async (acc, rej) => {
         const browser = await puppeteer.connect({
-            browserWSEndpoint: 'wss://browser.deltex.com.br?token=6e88ebf3f086e25d'
+            browserWSEndpoint: process.env.BROWSER_ENDPOINT
         })
 
         const page = await browser.newPage();
@@ -19,7 +17,7 @@ export function auth(email, pass) {
 
             token.data = (new Date()).toJSON()
             acc(token)
-            await redis.set('auth:'+email, JSON.stringify(token))
+            await connection.set('auth:'+email, JSON.stringify(token))
           }
         })
       
