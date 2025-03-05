@@ -12,7 +12,7 @@ const worker = new Worker('auth',
 
             job.updateProgress('sending email')
             await sendEmail(process.env.EMAIL_AUTH, `
-        <a href="${process.env.URL_AUTH}?acess_token${token.access_token}&id=${token.session_id}">Acessar</a>    
+        <a href="${process.env.URL_AUTH}?acess_token=${token.access_token}&id=${token.session_id}">Acessar</a>    
         `)
 
             job.updateProgress('done')
