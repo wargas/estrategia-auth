@@ -1,5 +1,6 @@
 import { Worker } from "bullmq";
 import { auth } from './auth.js';
+import { bodyEmail } from "./body.js";
 import { sendEmail } from './email.js';
 import { connection } from "./redis.js";
 
@@ -11,9 +12,7 @@ const worker = new Worker('auth',
             const token = await auth(process.env.ESTRATEGIA_EMAIL, process.env.ESTRATEGIA_PASSWORD)
 
             job.updateProgress('sending email')
-            await sendEmail(process.env.EMAIL_AUTH, `
-        <a href="${process.env.URL_AUTH}?acess_token=${token.access_token}&id=${token.session_id}">Acessar</a>    
-        `)
+            await sendEmail(process.env.EMAIL_AUTH, bodyEmail(token))
 
             job.updateProgress('done')
 
